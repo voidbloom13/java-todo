@@ -5,6 +5,8 @@ public class Main {
 
   public static void main(String[] args) {
     User.createUser();
+    User.createUser();
+    User.createUser();
     System.out.println(users);
   }
 }
