@@ -22,7 +22,7 @@ public class User {
   }
 
   public static void createUser() {
-    User newUser = new User();
+    User newUser = new User(); // Needs to be updated. Currently not creating new instances of User.
     Main.users.add(newUser);
   }
 }

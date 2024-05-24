@@ -41,31 +41,36 @@ public class Utils {
     System.out.println("\t\u2023Lower Case Character");
     System.out.println("\t\u2023Number");
     System.out.println("\t\u2023Special Character: !@#$%&*");
-    String password = scan.nextLine();
+    
+    boolean isValidPassword = false;
+    String password = "";
 
     String regex = "^(?=.*[0-9])" // contains a number
-      + "(?=.*[a-z])(?=.*[A-Z])" // contains a-z, A-Z
-      + "(?=.*[!@#$%&*])" // contains a special character
-      + "(?=\\S+$).{8,20}$"; // contains no white spaces, between 8-20 characters in length
-
+    + "(?=.*[a-z])(?=.*[A-Z])" // contains a-z, A-Z
+    + "(?=.*[!@#$%&*])" // contains a special character
+    + "(?=\\S+$).{8,20}$"; // contains no white spaces, between 8-20 characters in length
     Pattern pattern = Pattern.compile(regex); // sets the regex pattern
-    Matcher matcher = pattern.matcher(password); // checks the pattern against the param
-    if (!matcher.matches()) {
-      System.out.println("\nPassword does not meet the criteria.");
-      validatePassword();
+    
+    while (!isValidPassword) {
+      password = scan.nextLine();
+      Matcher matcher = pattern.matcher(password); // checks the pattern against the param
+      if (!matcher.matches()) {
+        System.out.println("\nPassword does not meet the criteria.");
+      } else {
+        System.out.println("\nRe-enter your password: ");
+        String passwordCheck = scan.nextLine();
+        if (!password.equals(passwordCheck)) {
+          System.out.println("Passwords do not match.");
+        } else {
+          isValidPassword = true;
+        }
+      }
     }
     System.out.println("\tpassword = " + password);
-
+    System.out.println("\tpasswordCheck = " + passwordCheck);
+    return password;
+    
     // Current bug: If the initial password fails validation, re-enter password portion
     // repeats twice and then fails. password variable is reset as default invalid password. Need to research why.
-    System.out.println("\nRe-enter your password: ");
-    String passwordCheck = scan.nextLine();
-    System.out.println("\tpasswordCheck = " + passwordCheck);
-
-    if (!password.equals(passwordCheck)) {
-      System.out.println("Passwords do not match.");
-      validatePassword();
-    }
-    return password;
   }
 }
